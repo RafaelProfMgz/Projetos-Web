@@ -1,0 +1,136 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Cálculo de Percentual</title>
+    <style>
+      body {
+        font-family: Arial, sans-serif;
+        background-color: #f4f4f4;
+        margin: 0;
+        padding: 0;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        height: 100vh;
+      }
+
+      div {
+        background-color: #fff;
+        border-radius: 8px;
+        box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        padding: 20px;
+        max-width: 400px;
+        width: 100%;
+      }
+
+      h1 {
+        font-size: 24px;
+        color: #333;
+        margin-bottom: 20px;
+        text-align: center;
+      }
+
+      form {
+        display: flex;
+        flex-direction: column;
+      }
+
+      label {
+        font-size: 16px;
+        margin-bottom: 8px;
+        color: #555;
+      }
+
+      input {
+        padding: 10px;
+        font-size: 16px;
+        border: 1px solid #ddd;
+        border-radius: 4px;
+        margin-bottom: 20px;
+      }
+      textarea {
+        padding: 10px;
+        font-size: 16px;
+        border: 1px solid #ddd;
+        border-radius: 4px;
+        margin-bottom: 20px;
+      }
+
+      button {
+        background-color: #007bff;
+        color: #fff;
+        border: none;
+        padding: 10px 15px;
+        font-size: 16px;
+        border-radius: 4px;
+        cursor: pointer;
+        transition: background-color 0.3s;
+      }
+
+      button:hover {
+        background-color: #0056b3;
+      }
+
+      .result {
+        font-size: 16px;
+        margin-top: 20px;
+        color: #333;
+      }
+    </style>
+  </head>
+  <body>
+    <div>
+      <h1>Cálculo de Percentual</h1>
+      <form id="percentualForm">
+        <label for="gasolina">Preço da Gasolina (R$):</label>
+        <input type="number" id="gasolina" step="0.01" required />
+
+        <label for="alcool">Preço do Álcool (R$):</label>
+        <input type="number" id="alcool" step="0.01" required />
+
+        <button type="submit">Calcular</button>
+        <textarea class="result" id="resultado"></textarea>
+      </form>
+    </div>
+
+    <script>
+      document
+        .getElementById("percentualForm")
+        .addEventListener("submit", function (event) {
+          event.preventDefault();
+
+          const precoGasolina = parseFloat(
+            document.getElementById("gasolina").value
+          );
+          const precoAlcool = parseFloat(
+            document.getElementById("alcool").value
+          );
+
+          if (
+            isNaN(precoGasolina) ||
+            isNaN(precoAlcool) ||
+            precoGasolina <= 0
+          ) {
+            alert("Por favor, insira valores válidos.");
+            return;
+          }
+
+          const percentual = (precoAlcool / precoGasolina) * 100;
+          const resultado = document.getElementById("resultado");
+
+          resultado.textContent = `O preço do álcool é ${percentual.toFixed(
+            2
+          )}% do preço da gasolina.`;
+          if (percentual <= 70) {
+            resultado.textContent +=
+              " O álcool é mais vantajoso do que a gasolina.";
+          } else {
+            resultado.textContent +=
+              " A gasolina é mais vantajosa do que o álcool.";
+          }
+        });
+    </script>
+  </body>
+</html>
